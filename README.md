@@ -4,11 +4,14 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| name               | string | null: false |
+| nickname           | string | null: false |
 | email              | string | unique: true|
-| phone_number       | string | unique: true |
+| encrypted_password | string | null: false |
+| last_name_kanji    | string | null: false |
+| first_name_kanji   | string | null: false |
+| last_name_kana     | string | null: false |
+| first_name_kana    | string | null: false |
 | birthday           | text   | null: false |
-| password           | string | null: false |
 
 ### Association
 
@@ -19,15 +22,21 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
+| image              | string | null: false |
 | name               | string | null: false |
+| description        | text   | null: false |
 | category           | string | null: false |
+| condition          | string | null: false |
+| delivery_fee       | string | null: false |
+| region             | string | null: false |
+| delivery_day       | string | null: false |
 | price              | string | null: false |
-| seller             | string | null: false |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
-- Item belongs_to :User
-- Item belongs_to :buys
+- Item has_one :User
+- Item has_one :buy
 
 ## buysテーブル
 
@@ -46,14 +55,15 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| name               | string | null: false |
-| address            | string | null: false |
-| city               | string | null: false |
-| building_name      | string |             |
-| email              | string | unique: true|
+| address            | text   | null: false |
+| prefecture         | string | null: false |
+| city               | text   | null: false |
+| block              | text   | null: false |
+| building           | string |             |
 | phone_number       | string | unique: true |
+| buy                | references | null: false, foreign_key: true|
 
 ### Association
 
-- Address belongs_to :buys
+- Address belongs_to :buy
 
