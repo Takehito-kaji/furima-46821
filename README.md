@@ -5,7 +5,7 @@
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
 | nickname           | string | null: false |
-| email              | string | unique: true|
+| email              | string | null: false |
 | encrypted_password | string | null: false |
 | last_name_kanji    | string | null: false | 
 | first_name_kanji   | string | null: false |
@@ -22,12 +22,12 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| name_id               | integer | null: false |
-| description_id        | integer | null: false |
+| name                  | string  | null: false |
+| description           | text    | null: false |
 | category_id           | integer | null: false |
 | condition_id          | integer | null: false |
 | delivery_fee_id       | integer | null: false |
-| region_id             | integer | null: false |
+| prefecture _id        | integer | null: false |
 | delivery_day_id       | integer | null: false |
 | price                 | integer | null: false |
 | user                  | references | null: false, foreign_key: true |
@@ -54,11 +54,8 @@
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| address            | text   | null: false |
 | postal_code        | string | null: false |
 | prefecture         | string | null: false |
-| city               | text   | null: false |
-| block              | text   | null: false |
 | city               | string | null: false |
 | block              | string | null: false |
 | building           | string |             |
@@ -68,4 +65,3 @@
 ### Association
 
 - Address belongs_to :buy
-
