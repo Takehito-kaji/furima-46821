@@ -1,33 +1,41 @@
 # テーブル設計
 
-## users テーブル
+# users テーブル
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| name               | string | null: false |
+| nickname           | string | null: false |
 | email              | string | unique: true|
-| phone_number       | string | unique: true |
-| birthday           | text   | null: false |
-| password           | string | null: false |
+| encrypted_password | string | null: false |
+| last_name_kanji    | string | null: false | 
+| first_name_kanji   | string | null: false |
+| last_name_kana     | string | null: false |
+| first_name_kana    | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
 - User has_many :items
 - User has_many :buys
 
-## itemsテーブル
+## items テーブル
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| name               | string | null: false |
-| category           | string | null: false |
-| price              | string | null: false |
-| seller             | string | null: false |
+| name_id               | integer | null: false |
+| description_id        | integer | null: false |
+| category_id           | integer | null: false |
+| condition_id          | integer | null: false |
+| delivery_fee_id       | integer | null: false |
+| region_id             | integer | null: false |
+| delivery_day_id       | integer | null: false |
+| price                 | integer | null: false |
+| user                  | references | null: false, foreign_key: true |
 
 ### Association
 
 - Item belongs_to :User
-- Item belongs_to :buys
+- Item has_one :buy
 
 ## buysテーブル
 
@@ -40,20 +48,24 @@
 
 - Buys belongs_to :user
 - Buys belongs_to :item
-- Buys belongs_to :address
+- Buys has_one    :address
 
 ## addresses テーブル
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
-| name               | string | null: false |
-| address            | string | null: false |
+| address            | text   | null: false |
+| postal_code        | string | null: false |
+| prefecture         | string | null: false |
+| city               | text   | null: false |
+| block              | text   | null: false |
 | city               | string | null: false |
-| building_name      | string |             |
-| email              | string | unique: true|
-| phone_number       | string | unique: true |
+| block              | string | null: false |
+| building           | string |             |
+| phone_number       | string | null: false |
+| buy                | references | null: false, foreign_key: true|
 
 ### Association
 
-- Address belongs_to :buys
+- Address belongs_to :buy
 
