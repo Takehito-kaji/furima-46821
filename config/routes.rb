@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :users, only: [:show]  # ← これを追加
   root to: "items#index"
 
   resources :items do
-    resources :orders, only: [:index]
+    resources :orders, only: [:index, :show]
   end
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions
   get "up" => "rails/health#show", as: :rails_health_check
 end
