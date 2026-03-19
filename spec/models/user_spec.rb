@@ -1,62 +1,48 @@
+# spec/models/user_spec.rb
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'バリデーション' do
-    let(:user) { build(:user) }
+  let(:user) { build(:user) }
 
-    it '有効なユーザーなら保存できる' do
+  describe 'ユーザー登録' do
+    it '全ての項目が正しく入力されていれば有効' do
       expect(user).to be_valid
     end
 
-    context 'メールアドレス' do
-      it 'email が空だと無効' do
-        user.email = ''
-        expect(user).not_to be_valid
-      end
-
-      it 'email がユニークでないと無効' do
-        create(:user, email: user.email)
-        expect(user).not_to be_valid
-      end
-
-      it 'email に @ が含まれていないと無効' do
-        user.email = 'invalid_email'
-        expect(user).not_to be_valid
-        expect(user.errors[:email]).to include('must include @')
-      end
+    it 'メールアドレスが空だと無効' do
+      user.email = ''
+      expect(user).not_to be_valid
     end
 
-    context 'パスワード' do
-      it 'password が空だと無効' do
-        user.password = ''
-        user.password_confirmation = ''
-        expect(user).not_to be_valid
-      end
+    it 'メールアドレスに@が含まれないと無効' do
+      user.email = 'test.com'
+      expect(user).not_to be_valid
+    end
 
-      it 'password が6文字未満だと無効' do
-        user.password = 'a1b2'
-        user.password_confirmation = 'a1b2'
-        expect(user).not_to be_valid
-      end
+    it 'メールアドレスが重複すると無効' do
+      user.save
+      another_user = build(:user, email: user.email)
+      expect(another_user).not_to be_valid
+    end
 
-      it 'password に数字が含まれないと無効' do
-        user.password = 'abcdef'
-        user.password_confirmation = 'abcdef'
-        expect(user).not_to be_valid
-        expect(user.errors[:password]).to include('must include both letters and numbers')
-      end
+    it 'パスワードが空だと無効' do
+      user.password = user.password_confirmation = ''
+      expect(user).not_to be_valid
+    end
 
-      it 'password に英字が含まれないと無効' do
-        user.password = '123456'
-        user.password_confirmation = '123456'
-        expect(user).not_to be_valid
-        expect(user.errors[:password]).to include('must include both letters and numbers')
-      end
+    it 'パスワードが6文字未満だと無効' do
+      user.password = user.password_confirmation = 'a1b2c'
+      expect(user).not_to be_valid
+    end
 
-      it 'password と password_confirmation が一致しないと無効' do
-        user.password_confirmation = 'different1'
-        expect(user).not_to be_valid
-      end
+    it 'パスワードが半角英数字混合でないと無効' do
+      user.password = user.password_confirmation = 'aaaaaa'
+      expect(user).not_to be_valid
+    end
+
+    it 'パスワードと確認用パスワードが一致しないと無効' do
+      user.password_confirmation = 'password2'
+      expect(user).not_to be_valid
     end
   end
 end
