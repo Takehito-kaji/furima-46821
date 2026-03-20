@@ -9,8 +9,5 @@ class ApplicationController < ActionController::Base
                                         :nickname, :email, :password, :last_name_kanji, :first_name_kanji,
                                         :last_name_kana, :first_name_kana, :birth_date
                                       ])
-
-    # アカウント更新時
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password])
   end
 end
