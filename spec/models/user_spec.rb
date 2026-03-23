@@ -9,6 +9,11 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
+    it 'ニックネームが空だと無効' do
+      user.nickname = ''
+      expect(user).not_to be_valid
+    end
+
     it 'メールアドレスが空だと無効' do
       user.email = ''
       expect(user).not_to be_valid
