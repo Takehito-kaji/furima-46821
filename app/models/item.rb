@@ -1,4 +1,7 @@
 class Item < ApplicationRecord
+  # ActiveHash を使う場合に必要
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
   # -----------------------------------
   # アソシエーション
   # -----------------------------------
@@ -11,6 +14,11 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   # -----------------------------------
+  # Item モデルに ActiveHash を紐付ける
+  # -----------------------------------
+  belongs_to_active_hash :category
+
+  #-----------------------------------
   # バリデーション
   # -----------------------------------
   validates :name, presence: true, length: { maximum: 40 }

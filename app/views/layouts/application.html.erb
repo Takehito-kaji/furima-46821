@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Furima</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,8 +10,13 @@
 </head>
 
 <body>
-  <%= render 'shared/header' %>
-  <%= yield %>
-</body>
+  <%# 共通ヘッダーは全ページで表示 %>
+  <%= render 'shared/header' unless controller_name == 'items' && action_name == 'new' %>
 
+  <%# ページごとのコンテンツ %>
+  <%= yield %>
+
+  <%# 共通フッターは全ページで表示 %>
+  <%= render 'shared/footer' unless controller_name == 'items' && action_name == 'new' %>
+</body>
 </html>
