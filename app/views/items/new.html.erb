@@ -1,12 +1,12 @@
 <div class="items-sell-contents">
   <header class="items-sell-header">
-    <%= link_to image_tag('furima-logo-color.png', size: '185x50'), "/" %>
-  </header>
+    <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
 
+  </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
 
-    <%= form_with local: true do |f| %>
+    <%= form_with model: @item, local: true, html: { multipart: true } do |f| %>
 
       <%# エラーメッセージ %>
       <%= render 'shared/error_messages', model: f.object %>
@@ -36,7 +36,7 @@
             商品の説明
             <span class="indispensable">必須</span>
           </div>
-          <%= f.text_area :description, class: "items-text", id: "item-info", placeholder: "商品の説明（必須 1,000文字まで）（色、素材、重さ、定価、注意点など）例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。あわせやすいのでおすすめです。" ,rows:"7" ,maxlength:"1000" %>
+          <%= f.text_area :description, class: "items-text", id: "item-info", placeholder: "商品の説明（必須 1,000文字まで）（色、素材、重さ、定価、注意点など）例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。あわせやすいのでおすすめです。", rows: "7", maxlength: "1000" %>
         </div>
       </div>
 
@@ -54,7 +54,7 @@
             商品の状態
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select :condition_id, [], :id, :name, {}, { class: "select-box", id: "item-sales-status" } %>
+          <%= f.collection_select :condition_id, Condition.all, :id, :name, { prompt: "---" }, { class: "select-box", id: "item-sales-status" } %>
         </div>
       </div>
 
@@ -69,19 +69,19 @@
             配送料の負担
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select :delivery_fee_id, [], :id, :name, {}, { class: "select-box", id: "item-shipping-fee-status" } %>
+          <%= f.collection_select :delivery_fee_id, DeliveryFee.all, :id, :name, { prompt: "---" }, { class: "select-box", id: "item-shipping-fee-status" } %>
 
           <div class="weight-bold-text">
             発送元の地域
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select :prefecture_id, [], :id, :name, {}, { class: "select-box", id: "item-prefecture" } %>
+          <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { prompt: "---" }, { class: "select-box", id: "item-prefecture" } %>
 
           <div class="weight-bold-text">
             発送までの日数
             <span class="indispensable">必須</span>
           </div>
-          <%= f.collection_select :delivery_day_id, [], :id, :name, {}, { class: "select-box", id: "item-scheduled-delivery" } %>
+          <%= f.collection_select :delivery_day_id, DeliveryDay.all, :id, :name, { prompt: "---" }, { class: "select-box", id: "item-scheduled-delivery" } %>
         </div>
       </div>
 
@@ -113,23 +113,23 @@
         </div>
       </div>
 
-     <%# 注意書き %>
-    <div class="caution">
-      <p class="sentence">
-        <a href="#">禁止されている出品、</a>
-        <a href="#">行為</a>
-        を必ずご確認ください。
-      </p>
-      <p class="sentence">
-        またブランド品でシリアルナンバー等がある場合はご記載ください。
-        <a href="#">偽ブランドの販売</a>
-        は犯罪であり処罰される可能性があります。
-      </p>
-      <p class="sentence">
-        また、出品をもちまして
-        <a href="#">加盟店規約</a>
-        に同意したことになります。
-      </p>
+      <%# 注意書き %>
+      <div class="caution">
+        <p class="sentence">
+          <a href="#">禁止されている出品、</a>
+          <a href="#">行為</a>
+          を必ずご確認ください。
+        </p>
+        <p class="sentence">
+          またブランド品でシリアルナンバー等がある場合はご記載ください。
+          <a href="#">偽ブランドの販売</a>
+          は犯罪であり処罰される可能性があります。
+        </p>
+        <p class="sentence">
+          また、出品をもちまして
+          <a href="#">加盟店規約</a>
+          に同意したことになります。
+   </p>
     </div>
     <%# /注意書き %>
     <%# 下部ボタン %>
@@ -137,11 +137,10 @@
       <%= f.submit "出品する" ,class:"sell-btn" %>
       <%=link_to 'もどる', root_path, class:"back-btn" %>
     </div>
-    <%# /下部ボタン %>
-  </div>
   <% end %>
+  </div>
 
-  <footer class="items-sell-footer">
+    <footer class="items-sell-footer">
     <ul class="menu">
       <li><a href="#">プライバシーポリシー</a></li>
       <li><a href="#">フリマ利用規約</a></li>

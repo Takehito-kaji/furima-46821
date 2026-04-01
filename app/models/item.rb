@@ -17,6 +17,10 @@ class Item < ApplicationRecord
   # Item モデルに ActiveHash を紐付ける
   # -----------------------------------
   belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :delivery_fee
+  belongs_to_active_hash :prefecture
+  belongs_to_active_hash :delivery_day
 
   #-----------------------------------
   # バリデーション
@@ -26,6 +30,10 @@ class Item < ApplicationRecord
   validates :category_id, :condition_id, :delivery_fee_id,
             :prefecture_id, :delivery_day_id, :price,
             presence: true
-  validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+  validates :price, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 300,
+    less_than_or_equal_to: 9_999_999
+  }
   validates :image, presence: true
 end

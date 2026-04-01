@@ -1,3 +1,2 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+import "@hotwired/turbo-rails"  // Turbo を読み込む
+import "./custom"                // 手数料・利益計算
