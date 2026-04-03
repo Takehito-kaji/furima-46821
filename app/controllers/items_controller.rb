@@ -1,7 +1,10 @@
 class ItemsController < ApplicationController
+  # 新規出品や作成時だけログイン必須
   before_action :authenticate_user!, only: [:new, :create]
 
   def index
+    # 出品されている全商品を取得
+    @items = Item.all.order(created_at: :desc)
   end
 
   def new
