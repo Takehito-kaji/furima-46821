@@ -27,7 +27,7 @@ class Item < ApplicationRecord
   # -------------------------------
   # 売り切れ判定
   # -------------------------------
-  def sold_out?
-    buy.present?
-  end
+  # def sold_out?
+  #   buy.present?
+  # end
 end
