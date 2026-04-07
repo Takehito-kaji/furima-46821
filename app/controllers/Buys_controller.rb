@@ -3,7 +3,7 @@ class BuysController < ApplicationController
   before_action :set_item
 
   def create
-    @buy = Buy.new(user: current_user, item: @item)
+    @buy = Buy.new(current_user.id@item.id)
     if @buy.save
       redirect_to items_path, notice: "購入しました"
     else

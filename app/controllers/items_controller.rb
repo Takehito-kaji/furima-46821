@@ -7,6 +7,10 @@ class ItemsController < ApplicationController
     @items = Item.all.order(created_at: :desc)
   end
 
+  def show
+  @item = Item.find(params[:id])
+  end
+
   def new
     @item = Item.new
   end
