@@ -1,11 +1,10 @@
-# app/controllers/items_controller.rb
 class ItemsController < ApplicationController
   # -------------------------------
   # ログイン・出品者制御
   # -------------------------------
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :move_to_index, only: [:edit, :update] # 出品者以外はトップへ
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :move_to_index, only: [:edit, :update, :destroy] # 出品者以外はトップへ
 
   # -------------------------------
   # 出品中の商品一覧
@@ -51,11 +50,13 @@ class ItemsController < ApplicationController
     end
   end
 
-  # 商品削除（オプション）
-  # def destroy
-  #   @item.destroy
-  #   redirect_to root_path, notice: '商品を削除しました'
-  # end
+  # -------------------------------
+  # 商品削除
+  # -------------------------------
+  def destroy
+    @item.destroy
+    redirect_to root_path, notice: '商品を削除しました'
+  end
 
   private
 
