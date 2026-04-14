@@ -6,11 +6,16 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+  <%# 1. 先に PAY.JP を読み込む（これより下に書かないと正しく認識されません） %>
+  <script src="https://js.pay.jp/v2/pay.js"></script>
+
+  <%# 2. その後に自分の JavaScript を読み込む %>
   <%= javascript_importmap_tags %>
+  <%= include_gon %>
 </head>
 
 <body>
-  <%# ページごとのコンテンツ %>
   <%= yield %>
 </body>
 </html>

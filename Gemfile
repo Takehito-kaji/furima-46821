@@ -84,3 +84,8 @@ group :production do
 end
 
 gem 'devise'
+
+# PAY.JP を使うための gem
+gem 'payjp'
+
+gem 'gon'

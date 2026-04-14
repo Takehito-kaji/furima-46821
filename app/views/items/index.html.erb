@@ -88,6 +88,15 @@
             <%= link_to item_path(item) do %>
               <div class='item-img-content'>
                 <%= image_tag item.image.attached? ? url_for(item.image) : "default-item.png", class: "item-img" %>
+
+       <%# --- ここにSold Outの表示を追加 --- %>
+         <% if item.sold_out? %>
+        <div class='sold-out'>
+          <span>Sold Out!!</span>
+        </div>
+        <% end %>
+      <%# ---------------------------------- %>
+
               </div>
               <div class='item-info'>
                 <h3 class='item-name'><%= item.name %></h3>

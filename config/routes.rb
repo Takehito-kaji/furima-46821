@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   # 商品関連ルート
   resources :items do
-    # 購入用ルート（createのみ）
-    resources :buys, only: [:create]
+    # 変更点：購入画面の表示(index)と、購入処理(create)の両方を設定します
+    resources :buys, only: [:index, :create]
   end
 
   # 任意のヘルスチェック
