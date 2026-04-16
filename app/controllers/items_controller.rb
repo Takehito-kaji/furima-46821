@@ -71,7 +71,7 @@ class ItemsController < ApplicationController
   # 出品者以外はトップページにリダイレクト
   # -------------------------------
   def move_to_index
-    redirect_to root_path, alert: '不正なアクセスです' unless @item.user == current_user
+    redirect_to root_path, alert: '不正なアクセスです' unless @item.user == current_user && !@item.sold_out?
   end
 
   # -------------------------------

@@ -8,36 +8,31 @@ class AddressForm
     validates :user_id
     validates :item_id
     validates :token
-
-    validates :postal_code, presence: { message: "can't be blank" }
-    validates :prefecture_id, presence: { message: "can't be blank" }
-    validates :city, presence: { message: "can't be blank" }
-    validates :block, presence: { message: "can't be blank" }
-    validates :phone_number, presence: { message: "can't be blank" }
+    validates :postal_code
+    validates :city
+    validates :block
+    validates :phone_number
   end
 
+  # 郵便番号
   validates :postal_code,
             format: {
               with: /\A\d{3}-\d{4}\z/,
-              message: 'is invalid. Enter it as follows (e.g. 123-4567)'
+              message: 'is invalid'
             }
 
+  # 都道府県
   validates :prefecture_id,
             numericality: {
               other_than: 1,
-              message: "can't be blank"
+              message: 'must be other than 1'
             }
 
+  # 電話番号
   validates :phone_number,
             format: {
-              with: /\A\d+\z/,
-              message: 'is invalid. Input only number'
-            }
-
-  validates :phone_number,
-            length: {
-              minimum: 10,
-              message: 'is too short'
+              with: /\A\d{10,11}\z/,
+              message: 'is invalid'
             }
 
   def save

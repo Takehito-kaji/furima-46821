@@ -1,14 +1,12 @@
 FactoryBot.define do
   factory :address_form do
-    postal_code { '123-4567' }
-    prefecture_id { 2 }
-    city { 'Tokyo' }
-    block { '1-1-1' }
-    building { 'Building' }
-    phone_number { '09012345678' }
+    user_id { user.id }
+    item_id { item.id }
     token { 'tok_123456' }
-
-    user_id { 1 }
-    item_id { 1 }
+    city { '東京' }
+    postal_code { '123-4567' }
+    block { '1-1-1' }
+    phone_number { '09012345678' }
+    prefecture_id { 2 }
   end
 end
