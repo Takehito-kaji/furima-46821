@@ -2,13 +2,8 @@ require 'rails_helper'
 
 RSpec.describe AddressForm, type: :model do
   before do
-    # ① userのレコードをDBに保存して作成
     @user = create(:user)
-
-    # ② itemも同様にDBに保存して作成
     @item = create(:item)
-
-    # ③ フォームオブジェクト作成時にIDを渡す
     @address_form = build(:address_form,
                           user_id: @user.id,
                           item_id: @item.id)
@@ -21,6 +16,7 @@ RSpec.describe AddressForm, type: :model do
       end
 
       it 'buildingは空でもOK（仕様にあるなら）' do
+        @address_form.building = ''
         expect(@address_form).to be_valid
       end
     end
@@ -50,17 +46,33 @@ RSpec.describe AddressForm, type: :model do
         expect(@address_form.errors.full_messages).to include("Block can't be blank")
       end
 
+      # ===== phone_number関連（ここが今回の修正ポイント） =====
+
       it 'phone_numberが空なら無効' do
         @address_form.phone_number = ''
         @address_form.valid?
         expect(@address_form.errors.full_messages).to include("Phone number can't be blank")
       end
 
-      it 'phone_numberが10〜11桁以外なら無効' do
+      it 'phone_numberが9桁だと無効' do
         @address_form.phone_number = '090123456'
         @address_form.valid?
         expect(@address_form.errors.full_messages).to include('Phone number is invalid')
       end
+
+      it 'phone_numberが12桁だと無効' do
+        @address_form.phone_number = '090123456789'
+        @address_form.valid?
+        expect(@address_form.errors.full_messages).to include('Phone number is invalid')
+      end
+
+      it 'phone_numberに数字以外が含まれると無効' do
+        @address_form.phone_number = '0901234abcd'
+        @address_form.valid?
+        expect(@address_form.errors.full_messages).to include('Phone number is invalid')
+      end
+
+      # =====================================================
 
       it 'item_idが空なら無効' do
         @address_form.item_id = nil

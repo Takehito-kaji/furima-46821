@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_15_082437) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_17_114200) do
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,12 +40,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_15_082437) do
   end
 
   create_table "addresses", charset: "utf8mb3", force: :cascade do |t|
-    t.string "postal_code"
-    t.integer "prefecture_id"
-    t.string "city"
-    t.string "block"
+    t.string "postal_code", null: false
+    t.integer "prefecture_id", null: false
+    t.string "city", null: false
+    t.string "block", null: false
     t.string "building"
-    t.string "phone_number"
+    t.string "phone_number", null: false
     t.bigint "buy_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
